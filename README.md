@@ -1,8 +1,5 @@
 # Links for Later - Chrome Extension
 
-![Screenshot_x](https://github.com/user-attachments/assets/3d4124fd-2e04-42bf-923a-5bb695bcdac8) ![Screenshot 2024-09-25 223159](https://github.com/user-attachments/assets/b300b16e-dc2c-4abd-be6b-a947d362637a)
-
-
 ## Save Links Efficiently and Keep Your Browser Uncluttered
 
 Tired of having too many tabs open while browsing? **Links for Later** provides a simple, elegant solution to save links for later without cluttering your browser or slowing it down. Add links to a list with a single right-click and manage them whenever you want through a modern, user-friendly interface.
@@ -27,5 +24,7 @@ Keep your browsing organized and efficient without overloading your tabs. Simpli
 3. Start saving links with a single click!
 
 ---
+
+![Screenshot_x](https://github.com/user-attachments/assets/3d4124fd-2e04-42bf-923a-5bb695bcdac8) ![Screenshot 2024-09-25 223159](https://github.com/user-attachments/assets/b300b16e-dc2c-4abd-be6b-a947d362637a)
 
 Keep your browser clutter-free and enjoy seamless link management with **Links for Later**. Simplify your online experience today!
