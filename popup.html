@@ -3,13 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Saved Links</title>
-  <link rel="stylesheet" href="popup.css"> <!-- Linking the external CSS file -->
+  <title>Links for Later</title>
+  <link rel="stylesheet" href="popup.css">
 </head>
 <body>
-  <h1>Saved Links</h1>
+  <div class="header">
+    <h1>Saved Links</h1>
+    <label class="switch">
+      <input type="checkbox" id="darkModeToggle">
+      <span class="slider round"></span>
+    </label>
+  </div>
+
   <ul id="linkList"></ul>
   <footer>Right-click links to add them here!</footer>
+  
   <script src="popup.js"></script>
 </body>
 </html>

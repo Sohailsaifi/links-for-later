@@ -1,66 +1,69 @@
 document.addEventListener('DOMContentLoaded', () => {
     const linkList = document.getElementById('linkList');
-  
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    
+    // Function to render links
     function renderLinks() {
       chrome.storage.sync.get({ links: [] }, (data) => {
-        linkList.innerHTML = ''; // Clear existing links
-        const sortedLinks = [...data.links]; // Clone the links array for sorting purposes
-  
-        sortedLinks.sort((a, b) => b.favorite - a.favorite); // Sort links, favorites first
-  
+        linkList.innerHTML = '';
+        const sortedLinks = [...data.links].sort((a, b) => b.favorite - a.favorite); // Sort by favorite
+        
         sortedLinks.forEach((link, sortedIndex) => {
-          const originalIndex = data.links.findIndex(originalLink => originalLink.url === link.url); // Find the original index
-  
+          const originalIndex = data.links.findIndex(originalLink => originalLink.url === link.url);
           const li = document.createElement('li');
-  
+          
           const linkContainer = document.createElement('div');
           linkContainer.classList.add('link-container');
-  
-          // Create favicon image
+          
           const favicon = document.createElement('img');
           favicon.src = `https://www.google.com/s2/favicons?domain=${new URL(link.url).hostname}`;
           favicon.classList.add('favicon');
           linkContainer.appendChild(favicon);
   
-          // Create link
           const a = document.createElement('a');
           a.href = link.url;
-          a.textContent = link.title || link.url; // Fallback to URL if title is empty
+          a.textContent = link.title || link.url;
           a.target = '_blank';
           linkContainer.appendChild(a);
-  
+          
           li.appendChild(linkContainer);
   
-          const actionContainer = document.createElement('div'); // New container for icons
-  
-          // Favorite icon
+          const actionContainer = document.createElement('div');
+          
           const favoriteIcon = document.createElement('span');
-          favoriteIcon.textContent = link.favorite ? '★' : '☆'; // Use actual Unicode characters
-          favoriteIcon.classList.add('icon', 'favorite'); 
-          favoriteIcon.title = 'Toggle favorite';
+          favoriteIcon.textContent = link.favorite ? '★' : '☆';
+          favoriteIcon.classList.add('icon', 'favorite');
           favoriteIcon.onclick = () => toggleFavorite(originalIndex, !link.favorite);
-  
           actionContainer.appendChild(favoriteIcon);
   
-          // Delete icon
           const deleteIcon = document.createElement('span');
-          deleteIcon.innerHTML = '&#10006;'; // X symbol for delete
+          deleteIcon.innerHTML = '&#10006;';
           deleteIcon.classList.add('icon', 'delete');
-          deleteIcon.title = 'Delete link';
           deleteIcon.onclick = () => deleteLink(originalIndex);
-  
           actionContainer.appendChild(deleteIcon);
-          li.appendChild(actionContainer);
   
+          li.appendChild(actionContainer);
           linkList.appendChild(li);
         });
       });
     }
   
+    // Toggle dark mode
+    darkModeToggle.addEventListener('change', () => {
+      document.body.classList.toggle('dark-mode', darkModeToggle.checked);
+      chrome.storage.sync.set({ darkMode: darkModeToggle.checked });
+    });
+  
+    // Load dark mode preference
+    chrome.storage.sync.get({ darkMode: false }, (data) => {
+      document.body.classList.toggle('dark-mode', data.darkMode);
+      darkModeToggle.checked = data.darkMode;
+    });
+  
     function toggleFavorite(index, favorite) {
       chrome.runtime.sendMessage({ action: 'toggleFavorite', index, favorite }, (response) => {
         if (response && response.success) {
-          renderLinks(); // Re-render the list after toggling favorite
+          renderLinks();
         } else {
           console.error('Error updating favorite status');
         }
@@ -70,13 +73,13 @@ document.addEventListener('DOMContentLoaded', () => {
     function deleteLink(index) {
       chrome.storage.sync.get({ links: [] }, (data) => {
         const links = data.links;
-        links.splice(index, 1); // Delete using the original index
+        links.splice(index, 1);
         chrome.storage.sync.set({ links: links }, () => {
-          renderLinks(); // Re-render the list
+          renderLinks();
         });
       });
     }
   
-    renderLinks(); // Initial render
+    renderLinks();
   });
   

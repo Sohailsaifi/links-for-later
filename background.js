@@ -28,17 +28,27 @@ function fetchTitleAndSaveLink(url) {
 
 function saveLink(url, title, favorite) {
     chrome.storage.sync.get({ links: [] }, (data) => {
-        const links = data.links;
-        links.push({ url: url, title: title, favorite: favorite });
-        chrome.storage.sync.set({ links: links }, () => {
-            if (chrome.runtime.lastError) {
-                console.error("Error saving link:", chrome.runtime.lastError);
-            } else {
-                console.log("Link saved successfully:", { url, title, favorite });
-            }
-        });
+      const links = data.links;
+  
+      // Check for duplicate URLs
+      const isDuplicate = links.some(link => link.url === url);
+      if (isDuplicate) {
+        console.log("Duplicate link detected. The link will not be added.");
+        return; // Stop if the link is a duplicate
+      }
+  
+      // Add the new link
+      links.push({ url: url, title: title, favorite: favorite });
+      chrome.storage.sync.set({ links: links }, () => {
+        if (chrome.runtime.lastError) {
+          console.error("Error saving link:", chrome.runtime.lastError);
+        } else {
+          console.log("Link saved successfully:", { url, title, favorite });
+        }
+      });
     });
-}
+  }
+  
 
 // Listen for messages from the popup
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
