@@ -1,8 +1,7 @@
 # Links for Later - Chrome Extension
 
-![Screenshot 2024-09-25 224053](https://github.com/user-attachments/assets/0e12652b-b6a1-43ba-8a64-0620429f3a5d)
+![Screenshot_x](https://github.com/user-attachments/assets/3d4124fd-2e04-42bf-923a-5bb695bcdac8) ![Screenshot 2024-09-25 223159](https://github.com/user-attachments/assets/b300b16e-dc2c-4abd-be6b-a947d362637a)
 
-![Screenshot_x](https://github.com/user-attachments/assets/3d4124fd-2e04-42bf-923a-5bb695bcdac8)
 
 ## Save Links Efficiently and Keep Your Browser Uncluttered
 
